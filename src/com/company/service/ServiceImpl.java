@@ -2,17 +2,18 @@ package com.company.service;
 
 
 import com.company.entities.Driver;
+import com.company.entities.State;
 import com.company.entities.Truck;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.company.Main.*;
 
-public class ServiceImpl implements Service{
+public class ServiceImpl implements Service {
+    final static Scanner sc = new Scanner(System.in);
+    final static Scanner scA = new Scanner(System.in);
     List<Truck> trucks = new ArrayList<>(List.of(GSON.fromJson(readTtuck(), Truck[].class)));
-    List<Driver> drivers = new ArrayList<>(List.of(GSON.fromJson(readDriver(),Driver[].class)));
-
+    List<Driver> drivers = new ArrayList<>(List.of(GSON.fromJson(readDriver(), Driver[].class)));
 
     public List<Truck> getTrucks() {
         return trucks;
@@ -22,25 +23,110 @@ public class ServiceImpl implements Service{
         return drivers;
     }
 
+    public void setTrucks(List<Truck> trucks) {
+        this.trucks = trucks;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
     @Override
-    public void changeDriver(int truckId) {
+    public void changeDriver() {
+        try {
+            System.out.print("\nid truck : ");
+            int truckId = sc.nextInt();
+            for (Truck truck : trucks) {
+                if (truck.getId() == truckId && truck.getState() != State.ROUTE) {
+                    System.out.println("\nyou chose it -> |" + truck + "\n");
+                    int coun = 0;
+                    for (Driver driver : drivers) {
+                        if (driver.getTruckName().equals(truck.getTruckName())) {
+                            driver.setTruckName("hit");
+                        }
+                        if (driver.getTruckName().equals("") && coun == 0) {
+                            coun++;
+                            truck.setDriver(driver.getName());
+                            driver.setTruckName(truck.getTruckName());
+                        }
+                        if (driver.getTruckName().equals("hit")) {
+                            driver.setName("");
+                        }
+                    }
+                } else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
+                    throw new Exception("Грузовик уже в пути не можем поменять водитель!");
+                }
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
     }
 
     @Override
-    public void startDriving(int truckId) {
+    public void startDriving() {
+        System.out.print("\nid truckid : ");
+        int truckId = scA.nextInt();
+        try {
+            for (Truck truck : trucks) {
+                if (truck.getState() != State.ROUTE && truck.getId() == truckId && !truck.getDriver().equals(" ")) {
+                    truck.setState(State.ROUTE);
+                } else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
+                    throw new Exception("Грузовик уже в пути !");
+                }
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
     }
 
     @Override
-    public void startRepair(int truckId) {
+    public void startRepair() {
+        try {
+            System.out.print("\nid truckid : ");
+            int truckId = scA.nextInt();
+            for (Truck truck : trucks) {
+                if (truck.getId() == truckId && truck.getState() != State.REPAIR) {
+                    truck.setState(State.REPAIR);
+                } else if (truck.getId() == truckId && truck.getState() == State.REPAIR) {
+                    throw new NullPointerException("truck уже ремонтто !!");
+                }
+            }
+        } catch (NullPointerException nullPointerException) {
+            System.out.println(nullPointerException.getMessage());
+        } catch (Exception e) {
+            System.out.println("Введите id truck !!!!!!");
+        }
 
     }
 
     @Override
     public void changeTruckState() {
+        try {
+            System.out.print("\nid truckid : ");
+            int truckId = scA.nextInt();
+            for (Truck truck : trucks) {
+                if (truck.getId() == truckId && truck.getState() != State.BASE) {
+                    truck.setState(State.BASE);
+                } else if (truck.getId() == truckId && truck.getState() == State.BASE) {
+                    throw new NullPointerException("truck уже базада !!");
+                }
+            }
+        } catch (NullPointerException nullPointerException) {
+            System.out.println(nullPointerException.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Введите id truck !!!!!!");
+        }
 
     }
+
+
+    public void truk() {
+        System.out.println();
+        trucks.forEach(System.out::println);
+    }
+
 }
 
 

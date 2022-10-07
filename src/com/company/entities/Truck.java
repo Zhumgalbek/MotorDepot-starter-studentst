@@ -3,7 +3,40 @@ package com.company.entities;
 public class Truck {
     private int id;
     private String truckName;
-    private String driver;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTruckName() {
+        return truckName;
+    }
+
+    public void setTruckName(String truckName) {
+        this.truckName = truckName;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public com.company.entities.State getState() {
+        return State;
+    }
+
+    public void setState(com.company.entities.State state) {
+        State = state;
+    }
+
+    private String driver = null;
     private State State;
 
 
@@ -17,14 +50,8 @@ public class Truck {
 
     @Override
     public String toString() {
-        return id + "  |" + truckName + "     |" + State + "      |" + driver;
+        return id + "  |" + truckName + "     |" + State + "      |" + driver + "         |";
     }
-
-}
-
-enum State {
-    BASE, ROUTE, REPAIR
-
 
 }
 
