@@ -31,18 +31,17 @@ public class Main {
         try {
             service.truk();
         buttons();
-        System.out.print("choose a number from 1 to 5 : ");
+        System.out.print("choose a number from 1 to 4 : ");
         foo = scannerB.nextLine();
         System.out.println("\n");
         switch (foo){
             case "1" -> service.changeDriver();
             case "2" -> service.startDriving();
             case "3" -> service.startRepair();
-            case "4" -> service.changeTruckState();
-            default -> System.out.println("choose a number from 1 to 5 !!!");
+            default -> System.out.println("choose a number from 1 to 4 !!!");
         }
     }catch (Exception exception){
-            System.out.println("choose a number from 1 to 5 !!!");
+            System.out.println("choose a number from 1 to 4 !!!");
         }
 }
 
@@ -51,8 +50,7 @@ public class Main {
     public static void buttons(){
         System.out.println("\nPress 1 to change Driver\n" +
         "Press 2 to send to the Route\n" +
-                "Press 3 to REPAIR \n"+
-        "Press 4 to send to BASE\n");
+                "Press 3 to REPAIR \n");
     }
 
 
