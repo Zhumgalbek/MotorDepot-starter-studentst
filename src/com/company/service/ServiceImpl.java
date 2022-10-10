@@ -52,7 +52,8 @@ public class ServiceImpl implements Service {
 
                         if (d.getTruckName().equals("null")){
                             d.setTruckName("");
-                        }else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
+                        }
+                        if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
                             throw new Exception("Грузовик уже в пути не можем поменять водитель!");
                         }
                     }
