@@ -35,9 +35,7 @@ public class ServiceImpl implements Service {
     public void changeDriver() {
         try {
             System.out.print("\nid truck : ");
-
             int truckId = sc.nextInt();
-
             for (Truck truck : trucks) {
                 if (truck.getId() == truckId && truck.getState() != State.ROUTE) {
                     int counter = 0;
