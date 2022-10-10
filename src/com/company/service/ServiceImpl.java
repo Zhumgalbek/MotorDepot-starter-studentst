@@ -37,31 +37,35 @@ public class ServiceImpl implements Service {
             System.out.print("\nid truck : ");
             int truckId = sc.nextInt();
             for (Truck truck : trucks) {
-                if (truck.getId() == truckId && truck.getState() != State.ROUTE) {
-                    System.out.println("\nyou chose it -> |" + truck + "\n");
-                    int coun = 0;
-                    for (Driver driver : drivers) {
-                        if (driver.getTruckName().equals(truck.getTruckName())) {
-                            driver.setTruckName("hit");
+                if (truck.getId() == truckId && truck.getState() == State.BASE || truck.getState() == State.REPAIR) {
+                    int counter = 0;
+                    for (Driver d : drivers) {
+                        if (d.getTruckName().equals(truck.getTruckName())){
+                            d.setTruckName("null");
                         }
-                        if (driver.getTruckName().equals("") && coun == 0) {
-                            coun++;
-                            truck.setDriver(driver.getName());
-                            driver.setTruckName(truck.getTruckName());
+
+                        if (d.getTruckName().equals("") && counter == 0) {
+                            counter++;
+                            truck.setDriver(d.getName());
+                            d.setTruckName(truck.getTruckName());
                         }
-                        if (driver.getTruckName().equals("hit")) {
-                            driver.setName("");
+
+                        if (d.getTruckName().equals("null")){
+                            d.setTruckName("");
+                        }else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
+                            throw new Exception("Грузовик уже в пути не можем поменять водитель!");
                         }
                     }
-                } else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
-                    throw new Exception("Грузовик уже в пути не можем поменять водитель!");
                 }
             }
+
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
 
     }
+
+
 
     @Override
     public void startDriving() {
@@ -126,8 +130,8 @@ public class ServiceImpl implements Service {
         System.out.println();
         trucks.forEach(System.out::println);
     }
-
 }
+
 
 
 
