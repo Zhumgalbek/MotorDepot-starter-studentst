@@ -135,7 +135,7 @@ public class ServiceImpl implements Service {
 
 
     public void truk() {
-        System.out.println();
+        System.out.println( );
         trucks.forEach(System.out::println);
     }
 }
