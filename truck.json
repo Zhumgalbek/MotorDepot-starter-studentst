@@ -8,25 +8,25 @@
   {
     "id": 2,
     "truckName": "Volvo   ",
-    "driver": " ",
+    "driver":  " ",
     "State": "BASE"
   },
   {
     "id": 3,
     "truckName": "DAF XT  ",
-    "driver": " ",
+    "driver":  " ",
     "State": "BASE"
   },
   {
     "id": 4,
     "truckName": "Optimus Prime",
-    "driver": " ",
+    "driver":  " ",
     "State": "BASE"
   },
   {
     "id": 5,
     "truckName": "Bumble Bee",
-    "driver": " ",
+    "driver":  " ",
     "State": "BASE"
   }
 ]

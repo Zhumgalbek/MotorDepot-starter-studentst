@@ -35,13 +35,15 @@ public class ServiceImpl implements Service {
     public void changeDriver() {
         try {
             System.out.print("\nid truck : ");
+
             int truckId = sc.nextInt();
+
             for (Truck truck : trucks) {
-                if (truck.getId() == truckId && truck.getState() == State.BASE || truck.getState() == State.REPAIR) {
+                if (truck.getId() == truckId && truck.getState() != State.ROUTE) {
                     int counter = 0;
                     for (Driver d : drivers) {
                         if (d.getTruckName().equals(truck.getTruckName())){
-                            d.setTruckName("null");
+                            d.setTruckName(" ");
                         }
 
                         if (d.getTruckName().equals("") && counter == 0) {
@@ -50,17 +52,21 @@ public class ServiceImpl implements Service {
                             d.setTruckName(truck.getTruckName());
                         }
 
-                        if (d.getTruckName().equals("null")){
+                        if (d.getTruckName().equals(" ")){
                             d.setTruckName("");
-                        }else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
-                            throw new Exception("Грузовик уже в пути не можем поменять водитель!");
+                        }
+                        else if (truckId != truck.getId()) {
+                            System.out.println("нету такой цифры !! ");
                         }
                     }
+                } else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
+                    throw new Exception("Грузовик уже в пути не можем поменять водитель!");
                 }
             }
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
+            sc.nextLine();
         }
 
     }
@@ -78,6 +84,9 @@ public class ServiceImpl implements Service {
                 } else if (truck.getId() == truckId && truck.getState() == State.ROUTE) {
                     throw new Exception("Грузовик уже в пути !");
                 }
+                else if (!truck.getState().equals(" ") && truckId == truck.getId()){
+                    throw new Exception("нету водителя!!!");
+                }
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -93,6 +102,7 @@ public class ServiceImpl implements Service {
             for (Truck truck : trucks) {
                 if (truck.getId() == truckId && truck.getState() != State.REPAIR) {
                     truck.setState(State.REPAIR);
+                    truck.setDriver(" ");
                 } else if (truck.getId() == truckId && truck.getState() == State.REPAIR) {
                     throw new NullPointerException("truck уже ремонтто !!");
                 }
