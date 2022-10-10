@@ -77,13 +77,15 @@ public class ServiceImpl implements Service {
         int truckId = scA.nextInt();
         try {
             for (Truck truck : trucks) {
-                if (truck.getState() != State.ROUTE && truck.getState() != State.REPAIR && truck.getId() == truckId && !truck.getDriver().equals(" ")) {
+                if (truck.getState() == State.BASE && truck.getId() == truckId && !truck.getDriver().equals(" ")) {
                     truck.setState(State.ROUTE);
                 } else if (truck.getState() == State.REPAIR && truck.getId() == truckId && !truck.equals(" ")) {
                     Random random = new Random();
                     int randoms = random.nextInt(1, 3);
-                    if (randoms == 1 && truck.getId() == truckId && !truck.equals(" ")) {
+                    if (randoms == 1 && truck.getId() == truckId && truck.equals(" ")) {
                         truck.setState(State.ROUTE);
+                    } else if (truckId == truck.getId() && truck.getState() == State.REPAIR && truck.getDriver().equals(" ")) {
+                        truck.setState(State.BASE);
                     } else {
                         truck.setState(State.BASE);
                     }
